@@ -5,6 +5,8 @@ import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.VehicleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,11 +16,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+
 @WebServlet("/cars/create")
 public class VehicleCreateServlet extends HttpServlet {
-
-    private ClientService clientService = ClientService.getInstance();
-    private VehicleService vehicleService = VehicleService.getInstance();
+    @Autowired
+    private ClientService clientService;
+    @Autowired
+    private VehicleService vehicleService;
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+    }
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -33,7 +42,7 @@ public class VehicleCreateServlet extends HttpServlet {
         int nb_places = Integer.parseInt(request.getParameter("seats"));
         Vehicle vehicle = new Vehicle(marque,modele,nb_places);
         try {
-            VehicleService.getInstance().create(vehicle);
+            vehicleService.create(vehicle);
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         }

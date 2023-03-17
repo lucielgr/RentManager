@@ -49,7 +49,7 @@
                                         <a class="btn btn-success" href="#">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <a class="btn btn-danger" href="${pageContext.request.contextPath}/vehicles/delete?id=${vehicle.id}">
+                                        <a class="btn btn-danger" href="${pageContext.request.contextPath}/cars/delete?id=${vehicle.id}">
                                             <i class="fa fa-trash"></i>
                                         </a>
                                     </td>

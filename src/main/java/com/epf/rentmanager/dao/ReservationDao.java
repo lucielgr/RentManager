@@ -18,17 +18,28 @@ import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.persistence.ConnectionManager;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.VehicleService;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ReservationDao {
 
-	private static ReservationDao instance = null;
-	private ReservationDao() {}
-	public static ReservationDao getInstance() {
-		if(instance == null) {
-			instance = new ReservationDao();
-		}
-		return instance;
+	private ClientDao clientDao;
+	private ClientService clientService;
+	private  VehicleDao vehicleDao;
+	private VehicleService vehicleService;
+	private ReservationDao(ClientDao clientDao, VehicleDao vehicleDao) {
+		this.clientDao = clientDao;
+		this.vehicleDao = vehicleDao;
 	}
+
+	public ReservationDao() {
+	}
+	//	public static ReservationDao getInstance() {
+//		if(instance == null) {
+//			instance = new ReservationDao();
+//		}
+//		return instance;
+//	}
 	
 	private static final String CREATE_RESERVATION_QUERY = "INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(?, ?, ?, ?);";
 	private static final String DELETE_RESERVATION_QUERY = "DELETE FROM Reservation WHERE id=?;";
@@ -78,9 +89,9 @@ public class ReservationDao {
 
 			while(rs.next()){
 				long id = rs.getLong("id");
-				Client client = ClientDao.getInstance().findById(clientId);
+				Client client = this.clientDao.findById(clientId);
 				long vehicle_id =rs.getLong("vehicle_id");
-				Vehicle vehicle = VehicleService.getInstance().findById(vehicle_id);
+				Vehicle vehicle = this.vehicleDao.findById(vehicle_id);
 				LocalDate debut = rs.getDate("debut").toLocalDate();
 				LocalDate fin = rs.getDate("fin").toLocalDate();
 
@@ -90,8 +101,6 @@ public class ReservationDao {
 		}catch (SQLException e){
 			e.printStackTrace();
 			throw new DaoException();
-		} catch (ServiceException e) {
-			throw new RuntimeException(e);
 		}
 
 		return reservations;
@@ -112,8 +121,8 @@ public class ReservationDao {
 				int id = rs.getInt("id");
 				long idClient = rs.getLong("client_id");
 				long idVehicle = rs.getLong("vehicle_id");
-				Client client = ClientService.getInstance().findById(idClient);
-				Vehicle vehicle = VehicleService.getInstance().findById(idVehicle);
+				Client client = clientService.findById(idClient);
+				Vehicle vehicle = vehicleService.findById(idVehicle);
 				LocalDate debut = rs.getDate("debut").toLocalDate();
 				LocalDate fin = rs.getDate("fin").toLocalDate();
 

@@ -1,5 +1,6 @@
 package com.epf.rentmanager.main;
 
+import com.epf.rentmanager.configuration.AppConfiguration;
 import com.epf.rentmanager.dao.ClientDao;
 import com.epf.rentmanager.dao.ReservationDao;
 import com.epf.rentmanager.dao.VehicleDao;
@@ -11,6 +12,8 @@ import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -21,22 +24,21 @@ public class main {
 
     public static void main(String [] args) throws SQLException {
 
-        try{
-            Scanner sc = new Scanner(System.in);
-
-            // Afficher TOUS clients / vehicles / reservations
-            Vehicle v = new Vehicle("Cons", "modl", 4);
-            VehicleService.getInstance().create(v);
-
-            List<Client> clients = ClientService.getInstance().findAll();
-            System.out.println(clients);
-            List<Vehicle> vehicles = VehicleService.getInstance().findAll();
-            System.out.println(vehicles);
-            List<Reservation> res = ReservationService.getInstance().findAll();
-            System.out.println(res);
-
-            int i = ReservationService.getInstance().count();
-            System.out.println(i);
+        //            Scanner sc = new Scanner(System.in);
+//
+//            // Afficher TOUS clients / vehicles / reservations
+//            Vehicle v = new Vehicle("Cons", "modl", 4);
+//            VehicleService.getInstance().create(v);
+//
+//            List<Client> clients = ClientService.getInstance().findAll();
+//            System.out.println(clients);
+//            List<Vehicle> vehicles = VehicleService.getInstance().findAll();
+//            System.out.println(vehicles);
+//            List<Reservation> res = ReservationService.getInstance().findAll();
+//            System.out.println(res);
+//
+//            int i = ReservationService.getInstance().count();
+//            System.out.println(i);
 
 
 //            System.out.println("Entrez l'ID du client : ");
@@ -63,18 +65,15 @@ public class main {
 //            vehicles = VehicleService.getInstance().findAll();
 //            System.out.println(vehicles);
 
-              // Créer + ajouter réservation --------------------------------------------------
+        // Créer + ajouter réservation --------------------------------------------------
 //            Client c = ClientService.getInstance().findById(1);
 //            Vehicle v = VehicleService.getInstance().findById(1);
 //            Reservation r = new Reservation(1, c, v,LocalDate.parse("2000-12-12"),LocalDate.parse("2000-12-12"));
 //            ReservationService.getInstance().create(r);
 
-
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        } catch (DaoException e) {
-            throw new RuntimeException(e);
-        }
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
+        ClientService clientService = context.getBean(ClientService.class);
+        VehicleService vehicleService = context.getBean(VehicleService.class);
 
     }
 }
