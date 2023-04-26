@@ -53,7 +53,7 @@ public class UserCreateServlet extends HttpServlet {
         }
 
 
-        this.doGet(request,response);
+        response.sendRedirect("/rentmanager/users");
 
 
     }

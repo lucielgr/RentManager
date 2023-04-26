@@ -1,9 +1,8 @@
 package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.exception.ServiceException;
-import com.epf.rentmanager.model.Vehicle;
+import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.service.ClientService;
-import com.epf.rentmanager.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -14,12 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/cars/delete")
-public class VehicleDeleteServlet extends HttpServlet {
+@WebServlet("/users/delete")
+public class UserDeleteServlet extends HttpServlet {
     @Autowired
     private ClientService clientService;
-    @Autowired
-    private VehicleService vehicleService;
     @Override
     public void init() throws ServletException {
         super.init();
@@ -27,16 +24,16 @@ public class VehicleDeleteServlet extends HttpServlet {
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        long idVehicle = Long.parseLong(request.getParameter("id"));
-        Vehicle vehicle = null;
+        long idClient = Long.parseLong(request.getParameter("id"));
+        Client client = null;
         try {
-            vehicle = vehicleService.findById(idVehicle);
-            vehicleService.delete(vehicle);
+            client = clientService.findById(idClient);
+            clientService.delete(client);
 
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
-         response.sendRedirect("/rentmanager/cars");
+        response.sendRedirect("/rentmanager/users");
 
     }
 

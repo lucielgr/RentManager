@@ -47,8 +47,7 @@ public class VehicleCreateServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-
-        this.doGet(request,response);
+        response.sendRedirect("/rentmanager/cars");
 
 
     }

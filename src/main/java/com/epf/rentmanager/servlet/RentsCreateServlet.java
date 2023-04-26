@@ -1,8 +1,11 @@
 package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.exception.ServiceException;
+import com.epf.rentmanager.model.Client;
+import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
+import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -14,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 
 @WebServlet("/rents/create")
@@ -22,32 +26,50 @@ public class RentsCreateServlet extends HttpServlet {
     private ClientService clientService;
     @Autowired
     private VehicleService vehicleService;
+    @Autowired
+    private ReservationService reservationService;
+
     @Override
     public void init() throws ServletException {
         super.init();
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
-
-    }
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String marque = request.getParameter("manufacturer");
-        String modele = request.getParameter("modele");
-        int nb_places = Integer.parseInt(request.getParameter("seats"));
-        Vehicle vehicle = new Vehicle(marque,modele,nb_places);
         try {
-            vehicleService.create(vehicle);
+            request.setAttribute("allClients", this.clientService.findAll());
+            request.setAttribute("allVehicles", this.vehicleService.findAll());
+
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
 
 
-        this.doGet(request,response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
+
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        int idClient = Integer.parseInt(request.getParameter("client"));
+        int idVehicle = Integer.parseInt(request.getParameter("car"));
+        LocalDate begin_date = LocalDate.parse(request.getParameter("begin"));
+        LocalDate end_date = LocalDate.parse(request.getParameter("end"));
+
+        try {
+            Client client = clientService.findById(idClient);
+            Vehicle vehicle = vehicleService.findById(idVehicle);
+            Reservation reservation = new Reservation(client, vehicle, begin_date, end_date);
+            reservationService.create(reservation);
+        } catch (ServiceException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        response.sendRedirect("/rentmanager/rents");
 
 
     }
