@@ -18,13 +18,16 @@ import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.persistence.ConnectionManager;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.VehicleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class ReservationDao {
 
+	@Autowired
 	private ClientDao clientDao;
 	private ClientService clientService;
+	@Autowired
 	private  VehicleDao vehicleDao;
 	private VehicleService vehicleService;
 	private ReservationDao(ClientDao clientDao, VehicleDao vehicleDao) {
@@ -121,15 +124,15 @@ public class ReservationDao {
 				int id = rs.getInt("id");
 				long idClient = rs.getLong("client_id");
 				long idVehicle = rs.getLong("vehicle_id");
-				Client client = clientService.findById(idClient);
-				Vehicle vehicle = vehicleService.findById(idVehicle);
+				Client client = clientDao.findById(idClient);
+				Vehicle vehicle = vehicleDao.findById(idVehicle);
 				LocalDate debut = rs.getDate("debut").toLocalDate();
 				LocalDate fin = rs.getDate("fin").toLocalDate();
 
 				reservations.add(new Reservation(id, client, vehicle, debut, fin));
 			}
 			connection.close();
-		}catch (SQLException | ServiceException e){
+		}catch (SQLException e){
 			e.printStackTrace();
 			throw new DaoException();
 		}

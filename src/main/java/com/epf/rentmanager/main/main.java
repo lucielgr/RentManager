@@ -64,8 +64,7 @@ public class main {
 //            VehicleService.getInstance().delete((vehicles.get(4)));
 //            vehicles = VehicleService.getInstance().findAll();
 //            System.out.println(vehicles);
-
-        // Créer + ajouter réservation --------------------------------------------------
+             // Créer + ajouter réservation --------------------------------------------------
 //            Client c = ClientService.getInstance().findById(1);
 //            Vehicle v = VehicleService.getInstance().findById(1);
 //            Reservation r = new Reservation(1, c, v,LocalDate.parse("2000-12-12"),LocalDate.parse("2000-12-12"));

@@ -18,6 +18,13 @@ public class Client {
         this.email = email;
     }
 
+    public Client(String nom, String prenom, LocalDate naissance, String email) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.naissance = naissance;
+        this.email = email;
+    }
+
     public Client() {
 
     }

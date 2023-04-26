@@ -16,7 +16,7 @@ public class FillDatabase {
 
     public static void main(String[] args) throws Exception {
         try {
-            DeleteDbFiles.execute("~", "RentManagerDatabase", true);
+            //DeleteDbFiles.execute("~", "RentManagerDatabase", true);
             insertWithPreparedStatement();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,16 +43,17 @@ public class FillDatabase {
 
             // Remplissage de la base avec des Vehicules et des Clients
             Statement stmt = connection.createStatement();
-            stmt.execute("INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES('Renault', 'Clio 1', 4)");
-            stmt.execute("INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES('Peugeot', '208', 4)");
-            stmt.execute("INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES('Seat', 'vroum vroum',4)");
-            stmt.execute("INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES('Nissan', 'Qashqai',4)");
-            
-            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Dupont', 'Jean', 'jean.dupont@email.com', '1988-01-22')");
-            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Morin', 'Sabrina', 'sabrina.morin@email.com', '1988-01-22')");
-            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Afleck', 'Steeve', 'steeve.afleck@email.com', '1988-01-22')");
-            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Rousseau', 'Jacques', 'jacques.rousseau@email.com', '1988-01-22')");
-                    
+//            stmt.execute("INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES('Renault', 'Clio 1', 4)");
+//            stmt.execute("INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES('Peugeot', '208', 4)");
+//            stmt.execute("INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES('Seat', 'vroum vroum',4)");
+//            stmt.execute("INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES('Nissan', 'Qashqai',4)");
+//
+//            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Dupont', 'Jean', 'jean.dupont@email.com', '1988-01-22')");
+//            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Morin', 'Sabrina', 'sabrina.morin@email.com', '1988-01-22')");
+//            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Afleck', 'Steeve', 'steeve.afleck@email.com', '1988-01-22')");
+//            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Rousseau', 'Jacques', 'jacques.rousseau@email.com', '1988-01-22')");
+//
+            stmt.execute("INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES('1', '4', '1988-01-22', '2001-01-22')");
             connection.commit();
             System.out.println("Success!");
         } catch (SQLException e) {

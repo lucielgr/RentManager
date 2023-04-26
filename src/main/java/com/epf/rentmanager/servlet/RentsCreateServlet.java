@@ -1,12 +1,9 @@
 package com.epf.rentmanager.servlet;
 
-import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.exception.ServiceException;
-import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.VehicleService;
-//import jdk.vm.ci.meta.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -16,13 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 
-@WebServlet("/users/create")
-public class UserCreateServlet extends HttpServlet {
+@WebServlet("/rents/create")
+public class RentsCreateServlet extends HttpServlet {
     @Autowired
     private ClientService clientService;
     @Autowired
@@ -36,18 +31,17 @@ public class UserCreateServlet extends HttpServlet {
             throws ServletException, IOException {
 
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
 
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String last_name = request.getParameter("last_name");
-        String first_name = request.getParameter("first_name");
-        String email = request.getParameter("email");
-        LocalDate birth_date = LocalDate.parse(request.getParameter("birth_date"));
-        Client client = new Client(last_name,first_name,birth_date,email);
+        String marque = request.getParameter("manufacturer");
+        String modele = request.getParameter("modele");
+        int nb_places = Integer.parseInt(request.getParameter("seats"));
+        Vehicle vehicle = new Vehicle(marque,modele,nb_places);
         try {
-            clientService.create(client);
+            vehicleService.create(vehicle);
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
@@ -58,5 +52,3 @@ public class UserCreateServlet extends HttpServlet {
 
     }
 }
-
-

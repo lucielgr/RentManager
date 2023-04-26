@@ -61,4 +61,11 @@ public class ReservationService {
         return reservationDao.count();
     }
 
+    public List<Reservation> findResaByClientId(long id) throws ServiceException{
+        try {
+            return reservationDao.findResaByClientId(id);
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
