@@ -39,9 +39,9 @@ public class ReservationService {
         }
     }
 
-    public long delete(Reservation reservation) throws ServiceException {
+    public void delete(Reservation reservation) throws ServiceException {
         try{
-            return reservationDao.delete(reservation);
+            reservationDao.delete(reservation);
         }catch(DaoException e){
             e.printStackTrace();
             throw new ServiceException();
