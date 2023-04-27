@@ -1,3 +1,4 @@
+com/epf/rentmanager/servlet/VehicleDetailsServlet.class
 com/epf/rentmanager/servlet/VehicleDeleteServlet.class
 com/epf/rentmanager/servlet/VehicleCreateServlet.class
 com/epf/rentmanager/servlet/RentsModifServlet.class
@@ -19,6 +20,7 @@ com/epf/rentmanager/servlet/UserDeleteServlet.class
 com/epf/rentmanager/servlet/RentsListServlet.class
 com/epf/rentmanager/servlet/UserCreateServlet.class
 com/epf/rentmanager/servlet/RentsCreateServlet.class
+com/epf/rentmanager/servlet/RentsDeleteServlet.class
 com/epf/rentmanager/servlet/UserServlet.class
 com/epf/rentmanager/model/Client.class
 com/epf/rentmanager/main/main.class

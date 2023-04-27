@@ -16,42 +16,33 @@ import org.springframework.stereotype.Service;
 public class ReservationService {
 
     private final ReservationDao reservationDao;
-    public static ReservationService instance;
 
     public ReservationService(ReservationDao reservationDao) {
         this.reservationDao = reservationDao;
     }
 
-//    public static ReservationService getInstance() {
-//        if (instance == null) {
-//            instance = new ReservationService();
-//        }
-//        return instance;
-//    }
-
-
     public long create(Reservation reservation) throws ServiceException {
-        try{
+        try {
             return reservationDao.create(reservation);
-        }catch(DaoException e){
+        } catch (DaoException e) {
             e.printStackTrace();
             throw new ServiceException();
         }
     }
 
     public void delete(Reservation reservation) throws ServiceException {
-        try{
+        try {
             reservationDao.delete(reservation);
-        }catch(DaoException e){
+        } catch (DaoException e) {
             e.printStackTrace();
             throw new ServiceException();
         }
     }
 
     public List<Reservation> findAll() throws ServiceException {
-        try{
+        try {
             return reservationDao.findAll();
-        }catch(DaoException e){
+        } catch (DaoException e) {
             e.printStackTrace();
             throw new ServiceException();
         }
@@ -61,7 +52,7 @@ public class ReservationService {
         return reservationDao.count();
     }
 
-    public List<Reservation> findResaByClientId(long id) throws ServiceException{
+    public List<Reservation> findResaByClientId(long id) throws ServiceException {
         try {
             return reservationDao.findResaByClientId(id);
         } catch (DaoException e) {
@@ -69,7 +60,16 @@ public class ReservationService {
         }
     }
 
-    public void update(Reservation reservation) throws ServiceException{
+    public List<Reservation> findResaByVehicleId(long id) throws ServiceException {
+        try {
+            return reservationDao.findResaByVehicleId(id);
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public void update(Reservation reservation) throws ServiceException {
         try {
             reservationDao.update(reservation);
         } catch (DaoException e) {
@@ -78,9 +78,9 @@ public class ReservationService {
     }
 
     public Reservation findById(long id) throws ServiceException {
-        try{
+        try {
             return reservationDao.findById(id);
-        }catch(DaoException e){
+        } catch (DaoException e) {
             e.printStackTrace();
             throw new ServiceException();
         }

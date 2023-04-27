@@ -1,6 +1,7 @@
 package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.exception.ServiceException;
+import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
@@ -17,8 +18,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/users/details")
-public class UserDetailsServlet extends HttpServlet {
+@WebServlet("/cars/details")
+public class VehicleDetailsServlet extends HttpServlet {
     @Autowired
     private ClientService clientService;
     @Autowired
@@ -35,27 +36,27 @@ public class UserDetailsServlet extends HttpServlet {
 
         try {
             long id = Long.parseLong(request.getParameter("id"));
-            List<Reservation> reservations = this.reservationService.findResaByClientId(id);
+            List<Reservation> reservations = this.reservationService.findResaByVehicleId(id);
             int reservationsCount = reservations.size();
 
-            List< Vehicle>vehicles = new ArrayList<Vehicle>();
-            for (Reservation reservation:reservations) {
-                Vehicle vehicle = reservation.getVehicle();
-                vehicles.add(vehicle);
+            List<Client> clients = new ArrayList<Client>();
+            for (Reservation reservation : reservations) {
+                Client client = reservation.getClient();
+                clients.add(client);
             }
-            int vehiclesCount = vehicles.size();
+            int usersCount = clients.size();
 
             request.setAttribute("client", this.clientService.findById(id));
             request.setAttribute("reservations", reservations);
-            request.setAttribute("reservationsCount",reservationsCount);
-            request.setAttribute("vehicles", vehicles);
-            request.setAttribute("vehiclesCount",vehiclesCount);
+            request.setAttribute("reservationsCount", reservationsCount);
+            request.setAttribute("users", clients);
+            request.setAttribute("usersCount", usersCount);
 
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/details.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/details.jsp").forward(request, response);
 
     }
 }
