@@ -42,10 +42,10 @@
                                    <td>${reservation.fin}</td>
                                    <!--<td>John Doe</td>-->
                                    <td>
-                                       <a class="btn btn-success" href="#">
+                                       <a class="btn btn-success" href="${pageContext.request.contextPath}/rents/modif?id=${reservation.id}">
                                            <i class="fa fa-edit"></i>
                                        </a>
-                                       <a class="btn btn-danger" href="${pageContext.request.contextPath}/cars/delete?id=${vehicle.id}">
+                                       <a class="btn btn-danger" href="${pageContext.request.contextPath}/rents/delete?id=${reservation.id}">
                                            <i class="fa fa-trash"></i>
                                        </a>
                                    </td>

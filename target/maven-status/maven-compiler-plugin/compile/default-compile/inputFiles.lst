@@ -9,6 +9,8 @@
 /Users/faridbenslimane/Desktop/cours/4A/Langage Java/EPFMIN2_rentmanager/src/main/java/com/epf/rentmanager/servlet/VehicleListServlet.java
 /Users/faridbenslimane/Desktop/cours/4A/Langage Java/EPFMIN2_rentmanager/src/main/java/com/epf/rentmanager/service/VehicleService.java
 /Users/faridbenslimane/Desktop/cours/4A/Langage Java/EPFMIN2_rentmanager/src/main/java/com/epf/rentmanager/model/Reservation.java
+/Users/faridbenslimane/Desktop/cours/4A/Langage Java/EPFMIN2_rentmanager/src/main/java/com/epf/rentmanager/servlet/UserModifServlet.java
+/Users/faridbenslimane/Desktop/cours/4A/Langage Java/EPFMIN2_rentmanager/src/main/java/com/epf/rentmanager/servlet/UserDeleteServlet.java
 /Users/faridbenslimane/Desktop/cours/4A/Langage Java/EPFMIN2_rentmanager/src/main/java/com/epf/rentmanager/service/ReservationService.java
 /Users/faridbenslimane/Desktop/cours/4A/Langage Java/EPFMIN2_rentmanager/src/main/java/com/epf/rentmanager/configuration/AppConfiguration.java
 /Users/faridbenslimane/Desktop/cours/4A/Langage Java/EPFMIN2_rentmanager/src/main/java/com/epf/rentmanager/model/Client.java

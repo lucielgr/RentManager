@@ -68,4 +68,21 @@ public class ReservationService {
             throw new RuntimeException(e);
         }
     }
+
+    public void update(Reservation reservation) throws ServiceException{
+        try {
+            reservationDao.update(reservation);
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Reservation findById(long id) throws ServiceException {
+        try{
+            return reservationDao.findById(id);
+        }catch(DaoException e){
+            e.printStackTrace();
+            throw new ServiceException();
+        }
+    }
 }

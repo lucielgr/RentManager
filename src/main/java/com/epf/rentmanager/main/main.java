@@ -12,6 +12,7 @@ import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -70,9 +71,14 @@ public class main {
 //            Reservation r = new Reservation(1, c, v,LocalDate.parse("2000-12-12"),LocalDate.parse("2000-12-12"));
 //            ReservationService.getInstance().create(r);
 
+
+
+
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
         ClientService clientService = context.getBean(ClientService.class);
         VehicleService vehicleService = context.getBean(VehicleService.class);
+
+
 
     }
 }

@@ -1,8 +1,11 @@
 com/epf/rentmanager/servlet/VehicleDeleteServlet.class
 com/epf/rentmanager/servlet/VehicleCreateServlet.class
+com/epf/rentmanager/servlet/RentsModifServlet.class
 com/epf/rentmanager/exception/DaoException.class
+com/epf/rentmanager/servlet/UserModifServlet.class
 com/epf/rentmanager/configuration/AppConfiguration.class
 com/epf/rentmanager/persistence/ConnectionManager.class
+com/epf/rentmanager/servlet/VehicleModifServlet.class
 com/epf/rentmanager/service/VehicleService.class
 com/epf/rentmanager/dao/VehicleDao.class
 com/epf/rentmanager/service/ClientService.class
@@ -12,6 +15,7 @@ com/epf/rentmanager/dao/ClientDao.class
 com/epf/rentmanager/model/Reservation.class
 com/epf/rentmanager/exception/ServiceException.class
 com/epf/rentmanager/servlet/UserDetailsServlet.class
+com/epf/rentmanager/servlet/UserDeleteServlet.class
 com/epf/rentmanager/servlet/RentsListServlet.class
 com/epf/rentmanager/servlet/UserCreateServlet.class
 com/epf/rentmanager/servlet/RentsCreateServlet.class

@@ -67,5 +67,13 @@ public class ClientService {
 	public int count() throws DaoException, SQLException {
 		return clientDao.count();
 	}
+
+	public void update(Client client) throws ServiceException{
+		try {
+			clientDao.update(client);
+		} catch (DaoException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	
 }
