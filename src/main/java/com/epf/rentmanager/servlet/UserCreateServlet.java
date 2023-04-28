@@ -1,12 +1,9 @@
 package com.epf.rentmanager.servlet;
 
-import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
-import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.VehicleService;
-//import jdk.vm.ci.meta.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -16,9 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Date;
-import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @WebServlet("/users/create")
@@ -50,7 +47,14 @@ public class UserCreateServlet extends HttpServlet {
         LocalDate birth_date = LocalDate.parse(request.getParameter("birth_date"));
         Client client = new Client(last_name, first_name, birth_date, email);
 
-        if(client.isLegal()){
+        List<Client> allClients = new ArrayList<Client>();
+        try {
+            allClients = clientService.findAll();
+        } catch (ServiceException e) {
+            throw new RuntimeException(e);
+        }
+
+        if(client.isLegal() && client.isUnique(allClients)){
             try {
                 clientService.create(client);
                 response.sendRedirect("/rentmanager/users");
@@ -58,9 +62,17 @@ public class UserCreateServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
         }
+        else {
+            String message = "";
 
-        if (!client.isLegal()) {
-            String message = "Attention, l'utilisateur doit avoir au moins 18 ans.";
+            if (!client.isLegal()) {
+                message = "Attention, l'utilisateur doit avoir au moins 18 ans.";
+            }
+
+            if (!client.isUnique(allClients)) {
+                message = "Attention, l'adresse email est déjà utilisée, elle doit être unique.";
+            }
+
             request.setAttribute("alert_msg", message);
             request.setAttribute("last_name", last_name);
             request.setAttribute("first_name", first_name);

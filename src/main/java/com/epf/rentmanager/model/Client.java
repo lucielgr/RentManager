@@ -1,7 +1,12 @@
 package com.epf.rentmanager.model;
 
+import com.epf.rentmanager.exception.ServiceException;
+import com.epf.rentmanager.service.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 import java.util.Objects;
 
 public class Client {
@@ -10,6 +15,8 @@ public class Client {
     private String prenom;
     private LocalDate naissance;
     private String email;
+    @Autowired
+    private ClientService clientService;
 
     public Client(long id, String nom, String prenom, LocalDate dateNaissance, String email) {
         this.id = id;
@@ -70,7 +77,17 @@ public class Client {
         LocalDate today = LocalDate.now();
         int age =  Period.between(naissance, today).getYears();
         return(age>=18);
+    }
 
+    public boolean isUnique(List<Client> allClients){
+        boolean result = true;
+            for(Client client : allClients){
+                String mailClient = client.getEmail();
+                if(this.email.equals(mailClient)){
+                    result = false;
+                }
+            }
+        return result;
     }
 
 
