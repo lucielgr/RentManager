@@ -31,9 +31,9 @@
                                     <label for="car" class="col-sm-2 control-label">Voiture</label>
 
                                     <div class="col-sm-10">
-                                        <select class="form-control" id="car" name="car" value="${vehicle_id_init}">
+                                        <select class="form-control" id="car" name="car">
                                             <c:forEach items="${allVehicles}" var="vehicle">
-                                                <option value="${vehicle.id}">${vehicle.constructeur} ${vehicle.modele}</option>
+                                                <option value="${vehicle.id}" <c:if test="${vehicle_id_init == vehicle.id}"> selected </c:if> >${vehicle.constructeur} ${vehicle.modele}</option>
                                             </c:forEach>
                                         </select>
                                     </div>
@@ -42,9 +42,9 @@
                                     <label for="client" class="col-sm-2 control-label">Client</label>
 
                                     <div class="col-sm-10">
-                                        <select class="form-control" id="client" name="client" value="${client_id_init}">
+                                        <select class="form-control" id="client" name="client">
                                              <c:forEach items="${allClients}" var="client">
-                                                <option value="${client.id}">${client.prenom} ${client.nom}</option>
+                                                <option value="${client.id}" <c:if test="${client_id_init == client.id}"> selected </c:if>>${client.prenom} ${client.nom}</option>
                                             </c:forEach>
                                         </select>
                                     </div>
