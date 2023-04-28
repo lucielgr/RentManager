@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @WebServlet("/users/details")
 public class UserDetailsServlet extends HttpServlet {
@@ -38,18 +40,21 @@ public class UserDetailsServlet extends HttpServlet {
             List<Reservation> reservations = this.reservationService.findResaByClientId(id);
             int reservationsCount = reservations.size();
 
-            List< Vehicle>vehicles = new ArrayList<Vehicle>();
-            for (Reservation reservation:reservations) {
+            List<Vehicle> vehiclesDoublons = new ArrayList<Vehicle>();
+            for (Reservation reservation : reservations) {
                 Vehicle vehicle = reservation.getVehicle();
-                vehicles.add(vehicle);
+                vehiclesDoublons.add(vehicle);
             }
+
+            List<Vehicle> vehicles = new ArrayList<>(new LinkedHashSet<>(vehiclesDoublons));
+
             int vehiclesCount = vehicles.size();
 
             request.setAttribute("client", this.clientService.findById(id));
             request.setAttribute("reservations", reservations);
-            request.setAttribute("reservationsCount",reservationsCount);
+            request.setAttribute("reservationsCount", reservationsCount);
             request.setAttribute("vehicles", vehicles);
-            request.setAttribute("vehiclesCount",vehiclesCount);
+            request.setAttribute("vehiclesCount", vehiclesCount);
 
         } catch (ServiceException e) {
             throw new RuntimeException(e);

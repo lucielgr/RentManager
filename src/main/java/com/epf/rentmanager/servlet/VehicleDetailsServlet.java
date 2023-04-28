@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 @WebServlet("/cars/details")
@@ -39,11 +40,14 @@ public class VehicleDetailsServlet extends HttpServlet {
             List<Reservation> reservations = this.reservationService.findResaByVehicleId(id);
             int reservationsCount = reservations.size();
 
-            List<Client> clients = new ArrayList<Client>();
+            List<Client> clientsDoublons = new ArrayList<Client>();
             for (Reservation reservation : reservations) {
                 Client client = reservation.getClient();
-                clients.add(client);
+                clientsDoublons.add(client);
             }
+
+            List<Client> clients = new ArrayList<>(new LinkedHashSet<>(clientsDoublons));
+
             int usersCount = clients.size();
 
             request.setAttribute("client", this.clientService.findById(id));
