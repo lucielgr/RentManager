@@ -9,6 +9,12 @@
     <!-- Left side column. contains the logo and sidebar -->
     <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
 
+    <c:if test="${alert_msg != null}">
+        <script type="text/javascript">
+            alert("${alert_msg}");
+        </script>
+    </c:if>
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -19,6 +25,7 @@
         </section>
 
         <!-- Main content -->
+
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
@@ -31,27 +38,27 @@
                                     <label for="last_name" class="col-sm-2 control-label">Nom</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Nom">
+                                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Nom" value="${last_name}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="first_name" class="col-sm-2 control-label">Prenom</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Prenom">
+                                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Prenom" value ="${first_name}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="email" class="col-sm-2 control-label">Email</label>
 
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="${email}">
                                     </div>
                                 </div>
                             <div class="form-group">
                             <label for="email" class="col-sm-2 control-label">Date de Naissance</label>
                             <div class="col-sm-10">
-                             <input type="date" class="form-control" id="birth_date" name="birth_date">
+                             <input type="date" class="form-control" id="birth_date" name="birth_date" value="${naissance}">
                                </div>
                             </div>
                             </div>

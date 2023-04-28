@@ -37,8 +37,8 @@
                                     <c:forEach items="${clients}" var="client">
                                      <tr>
                                         <td>${client.id}</td>
-                                        <td>${client.prenom}</td>
                                         <td>${client.nom}</td>
+                                        <td>${client.prenom}</td>
                                         <td>${client.email}</td>
                                         <td>
                                             <a class="btn btn-primary" href="${pageContext.request.contextPath}/users/details?id=${client.id}">

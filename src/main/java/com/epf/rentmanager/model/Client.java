@@ -1,6 +1,7 @@
 package com.epf.rentmanager.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 
 public class Client {
@@ -63,6 +64,13 @@ public class Client {
                 ", dateNaissance=" + naissance +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    public boolean isLegal(){
+        LocalDate today = LocalDate.now();
+        int age =  Period.between(naissance, today).getYears();
+        return(age>=18);
+
     }
 
 
