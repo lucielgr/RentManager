@@ -54,15 +54,14 @@ public class UserCreateServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        if(client.isLegal() && client.isUnique(allClients)){
+        if (client.isLegal() && client.isUnique(allClients) && client.isFirstNameLong() && client.isNameLong()) {
             try {
                 clientService.create(client);
                 response.sendRedirect("/rentmanager/users");
             } catch (ServiceException e) {
                 throw new RuntimeException(e);
             }
-        }
-        else {
+        } else {
             String message = "";
 
             if (!client.isLegal()) {
@@ -73,6 +72,14 @@ public class UserCreateServlet extends HttpServlet {
                 message = "Attention, l'adresse email est déjà utilisée, elle doit être unique.";
             }
 
+            if (!client.isFirstNameLong()) {
+                message = "Attention, le prénom doit faire plus de 3 caractères.";
+            }
+
+            if (!client.isNameLong()) {
+                message = "Attention, le nom doit faire plus de 3 caractères.";
+            }
+
             request.setAttribute("alert_msg", message);
             request.setAttribute("last_name", last_name);
             request.setAttribute("first_name", first_name);
@@ -80,10 +87,6 @@ public class UserCreateServlet extends HttpServlet {
             request.setAttribute("naissance", birth_date);
             this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
         }
-
-
-
-
 
 
     }

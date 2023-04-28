@@ -90,6 +90,14 @@ public class Client {
         return result;
     }
 
+    public boolean isNameLong(){
+        return(this.nom.length()>=3);
+    }
+
+    public boolean isFirstNameLong(){
+        return(this.prenom.length()>=3);
+    }
+
 
 
 }
